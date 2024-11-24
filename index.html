@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dietary Restrictions Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Dietary Restrictions Tracker</h1>
+        
+        <!-- Search and Recommendation Section -->
+        <div class="form-container" id="search-section" style="display: none;">
+            <input type="text" id="restriction-input" placeholder="Enter allergy or restriction (e.g., nuts, gluten)" />
+            <button id="add-restriction-btn">Add Restriction</button>
+        </div>
+        <ul id="restriction-list"></ul>
+        <h2 id="restaurant-header" style="display: none;">Recommended Restaurants</h2>
+        <ul id="restaurant-list"></ul>
+    </div>
+
+    <!-- Registration Section -->
+    <div class="auth-container">
+        <h2>Register</h2>
+        <form id="register-form">
+            <input type="email" id="reg-email" placeholder="Email" required />
+            <input type="password" id="reg-password" placeholder="Password" required />
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <!-- Login Section -->
+    <div class="auth-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="email" id="login-email" placeholder="Email" required />
+            <input type="password" id="login-password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
