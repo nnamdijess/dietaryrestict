@@ -1,33 +1,28 @@
-// server.js
-
-
-
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const authRoutes = require('./auth');  // Correct import of the auth routes
+const bodyParser = require('body-parser');
+const authRoutes = require('./auth'); // Import your routes
 
-dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 5000;
+app.use(bodyParser.json()); // To parse JSON requests
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
-
-// Routes
-console.log(authRoutes);  // Should log the router function
-app.use('/auth', authRoutes);  // Using the auth routes
-
-// Connect to MongoDB
-const DB_URI = process.env.DB_URI || 'mongodb://localhost:27017/dietaryTracker';
+// MongoDB connection (replace with your actual DB URI)
 mongoose
-    .connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .connect('mongodb://localhost:27017/dietaryTracker', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
-    .catch((err) => console.error('MongoDB connection error:', err));
+    .catch((err) => console.log('MongoDB connection error:', err));
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+// Use the auth routes without any prefix
+app.use('/', authRoutes); // Routes accessible directly at `/profile`
+
+app.use((req, res, next) => {
+  console.log(`Received request: ${req.method} ${req.url}`);
+  next(); // Pass to next handler
+});
+
+
+// Start the server
+app.listen(5000, () => {
+    console.log('Server running on http://localhost:5000');
 });
