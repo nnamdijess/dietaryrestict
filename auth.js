@@ -46,13 +46,9 @@ router.post('/login', async (req, res) => {
 
 
 router.get('/profile',verifyToken,  async (req, res) => {
-  console.log('Profile endpoint hit');
+
   try {
 
-    
-    console.log('req.userId:', req.userId);
-      
-      
       const user = await User.findById(req.userId); // Use the user ID attached to the request object (from the decoded JWT token)
       
 

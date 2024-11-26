@@ -81,14 +81,59 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Event listener for the register form
-    registerForm.addEventListener('submit', (e) => {
+   /*registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = document.getElementById('reg-email').value;
         const password = document.getElementById('reg-password').value;
-        alert('Registration successful! You can now log in.');
-        registerForm.reset(); // Clear form after registration
-    });
 
+        // Send a POST request to the backend (Ensure your backend is set up to handle this)
+        fetch('http://localhost:5000/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Registration successful! You can now log in.');
+            registerForm.reset(); // Clear form after registration
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred during registration.');
+        });
+    });*/
+
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+    
+        try {
+            const response = await fetch('http://127.0.0.1:5000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+    
+            const data = await response.json();
+    
+            if (response.ok) {
+                alert('Registration successful!');
+                registerForm.reset(); // Clear form after registration
+            } else {
+                console.error('Registration failed:', data.message);
+                alert(data.message || 'An error occurred during registration.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration.');
+        }
+    });
+    
     // Event listener for the Add Restriction button
     addRestrictionBtn.addEventListener('click', addRestriction);
 
