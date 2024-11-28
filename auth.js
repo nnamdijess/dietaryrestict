@@ -45,6 +45,11 @@ router.post('/login', async (req, res) => {
     }
 });
 
+router.post('/logout', (req, res) => {
+    // Clear any session or authentication token here
+    res.status(200).json({ message: 'Logged out successfully' });
+});
+
    
 router.get('/profile',verifyToken,  async (req, res) => {
 
